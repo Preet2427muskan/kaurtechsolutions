@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaur Tech Solutions – Code Today. Solve Tomorrow. Empower Everyday.</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #1a1a4e;
+    --purple: #6b3fa0;
+    --violet: #8b5cf6;
+    --lavender: #e9e4f8;
+    --accent: #f5a623;
+    --white: #ffffff;
+    --gray: #f7f7fb;
+    --text: #1e1e2e;
+    --muted: #6b7280;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(26,26,78,0.97);
+    backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 64px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--purple), var(--violet));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 15px; color: white;
+    letter-spacing: -0.5px;
+  }
+  .nav-brand {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px; font-weight: 600; color: white; letter-spacing: 0.2px;
+  }
+  .nav-links {
+    display: flex; gap: 28px; list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    font-size: 13.5px; font-weight: 500; transition: color .2s;
+  }
+  .nav-links a:hover { color: white; }
+  .nav-cta {
+    background: var(--violet); color: white;
+    padding: 8px 18px; border-radius: 6px;
+    font-size: 13.5px; font-weight: 600; text-decoration: none;
+    transition: background .2s;
+  }
+  .nav-cta:hover { background: var(--purple); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(150deg, var(--navy) 0%, #2a1060 60%, #1a1a4e 100%);
+    display: flex; align-items: center;
+    padding: 100px 5vw 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 40%, rgba(139,92,246,0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    background: rgba(139,92,246,0.25);
+    border: 1px solid rgba(139,92,246,0.5);
+    color: #c4b5fd;
+    font-size: 11.5px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px; margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    font-weight: 700; line-height: 1.1;
+    color: white;
+    margin-bottom: 18px;
+  }
+  .hero h1 span { color: var(--violet); }
+  .hero-tagline {
+    font-size: 1rem; color: rgba(255,255,255,0.65);
+    font-style: italic; margin-bottom: 28px;
+  }
+  .hero-desc {
+    font-size: 15.5px; color: rgba(255,255,255,0.75);
+    line-height: 1.75; margin-bottom: 36px; max-width: 460px;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--purple), var(--violet));
+    color: white; padding: 13px 28px; border-radius: 8px;
+    font-weight: 600; font-size: 14.5px; text-decoration: none;
+    transition: transform .15s, box-shadow .15s;
+    box-shadow: 0 4px 20px rgba(107,63,160,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(107,63,160,0.55); }
+  .btn-secondary {
+    border: 1.5px solid rgba(255,255,255,0.3); color: white;
+    padding: 13px 28px; border-radius: 8px;
+    font-weight: 600; font-size: 14.5px; text-decoration: none;
+    transition: border-color .2s, background .2s;
+  }
+  .btn-secondary:hover { border-color: white; background: rgba(255,255,255,0.06); }
+  .hero-visual {
+    position: relative; display: flex; justify-content: center;
+  }
+  .code-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px; padding: 24px;
+    font-family: 'Courier New', monospace; font-size: 13.5px;
+    line-height: 1.8; color: #e2e8f0;
+    width: 100%; max-width: 380px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .code-card .line-num { color: rgba(255,255,255,0.25); user-select: none; margin-right: 14px; }
+  .kw { color: #c792ea; }
+  .fn { color: #82aaff; }
+  .str { color: #c3e88d; }
+  .cm { color: rgba(255,255,255,0.35); font-style: italic; }
+  .badge-float {
+    position: absolute; top: -18px; right: -18px;
+    background: linear-gradient(135deg, var(--purple), var(--violet));
+    color: white; border-radius: 50%;
+    width: 100px; height: 100px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px; font-weight: 700; line-height: 1.25;
+    box-shadow: 0 8px 24px rgba(107,63,160,0.5);
+  }
+
+  /* TRUST BAR */
+  .trust-bar {
+    background: var(--gray);
+    border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb;
+    padding: 28px 5vw;
+  }
+  .trust-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 32px 48px;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; font-weight: 600; color: var(--navy);
+  }
+  .trust-icon { font-size: 20px; }
+
+  /* SECTION WRAPPER */
+  section { padding: 80px 5vw; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    display: inline-block;
+    font-size: 11.5px; font-weight: 700; letter-spacing: 1.8px;
+    text-transform: uppercase; color: var(--purple);
+    margin-bottom: 10px;
+  }
+  .section-heading {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700; color: var(--navy); margin-bottom: 14px;
+  }
+  .section-sub {
+    font-size: 15.5px; color: var(--muted); max-width: 560px; line-height: 1.75;
+  }
+  .section-header { margin-bottom: 52px; }
+
+  /* SERVICES */
+  #services { background: var(--white); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+  }
+  .service-card {
+    border: 1.5px solid #e5e7eb;
+    border-radius: 14px; padding: 28px 24px;
+    transition: border-color .2s, box-shadow .2s, transform .2s;
+    background: white;
+  }
+  .service-card:hover {
+    border-color: var(--violet);
+    box-shadow: 0 8px 30px rgba(139,92,246,0.12);
+    transform: translateY(-4px);
+  }
+  .service-icon {
+    font-size: 36px; margin-bottom: 16px; display: block;
+  }
+  .service-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 14px;
+    text-transform: uppercase; letter-spacing: 0.4px;
+  }
+  .service-list { list-style: none; }
+  .service-list li {
+    font-size: 13.5px; color: var(--muted);
+    padding: 4px 0; display: flex; align-items: flex-start; gap: 7px;
+  }
+  .service-list li::before {
+    content: '✓'; color: var(--violet); font-weight: 700;
+    flex-shrink: 0; margin-top: 1px;
+  }
+
+  /* BUSINESS SECTION */
+  #business { background: var(--gray); }
+  .biz-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+  }
+  .biz-card {
+    background: white; border-radius: 12px; padding: 24px 18px;
+    text-align: center;
+    border: 1px solid #e5e7eb;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .biz-card:hover { box-shadow: 0 6px 24px rgba(107,63,160,0.1); transform: translateY(-3px); }
+  .biz-card-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+  .biz-card h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px; font-weight: 700; color: var(--navy);
+    margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .biz-card p { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+  /* PROCESS STRIP */
+  .process-strip {
+    background: linear-gradient(135deg, var(--navy), #3b1e7a);
+    padding: 28px 5vw;
+  }
+  .process-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; flex-wrap: wrap;
+  }
+  .process-step {
+    display: flex; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
+    padding: 8px 4px;
+  }
+  .process-step-icon { font-size: 18px; }
+  .process-step-label { letter-spacing: 0.8px; text-transform: uppercase; }
+  .process-arrow {
+    color: rgba(255,255,255,0.3); font-size: 14px; padding: 0 10px;
+  }
+
+  /* WHY CHOOSE */
+  #why { background: var(--white); }
+  .why-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; align-items: start;
+  }
+  .why-list { list-style: none; }
+  .why-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px 0; border-bottom: 1px solid #f0f0f5; font-size: 14.5px;
+  }
+  .why-list li:last-child { border-bottom: none; }
+  .why-check {
+    width: 22px; height: 22px; background: linear-gradient(135deg, var(--purple), var(--violet));
+    border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 11px; font-weight: 700; margin-top: 1px;
+  }
+  .who-list { list-style: none; }
+  .who-list li {
+    font-size: 14.5px; padding: 10px 0;
+    border-bottom: 1px solid #f0f0f5;
+    display: flex; align-items: center; gap: 10px; color: var(--text);
+  }
+  .who-list li:last-child { border-bottom: none; }
+  .who-dot { width: 8px; height: 8px; background: var(--violet); border-radius: 50%; flex-shrink: 0; }
+  .tech-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;
+  }
+  .tech-pill {
+    background: var(--gray);
+    border: 1px solid #e5e7eb;
+    border-radius: 8px; padding: 10px 8px;
+    text-align: center; font-size: 12.5px; font-weight: 600; color: var(--navy);
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+  }
+  .tech-pill span { font-size: 22px; }
+
+  /* CONTACT */
+  #contact {
+    background: linear-gradient(150deg, var(--navy) 0%, #2a1060 100%);
+    padding: 80px 5vw;
+  }
+  .contact-inner {
+    max-width: 1000px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .contact-left h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700; color: white; margin-bottom: 14px;
+  }
+  .contact-left p { color: rgba(255,255,255,0.65); font-size: 15px; margin-bottom: 32px; line-height: 1.7; }
+  .contact-details { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .contact-details li {
+    display: flex; gap: 12px; align-items: center;
+    color: rgba(255,255,255,0.8); font-size: 14.5px;
+  }
+  .contact-details li span:first-child { font-size: 18px; flex-shrink: 0; }
+  .contact-details a { color: rgba(255,255,255,0.8); text-decoration: none; }
+  .contact-details a:hover { color: white; }
+  .contact-form {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px; padding: 32px;
+    backdrop-filter: blur(10px);
+  }
+  .form-group { margin-bottom: 18px; }
+  .form-group label {
+    display: block; font-size: 12.5px; font-weight: 600;
+    color: rgba(255,255,255,0.7); margin-bottom: 7px; letter-spacing: 0.3px;
+  }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18); border-radius: 8px;
+    padding: 11px 14px; color: white; font-size: 14px; font-family: 'Inter', sans-serif;
+    outline: none; transition: border-color .2s;
+    -webkit-appearance: none;
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.35); }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--violet);
+  }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-group select option { background: var(--navy); color: white; }
+  .form-submit {
+    width: 100%; background: linear-gradient(135deg, var(--purple), var(--violet));
+    color: white; border: none; border-radius: 8px;
+    padding: 13px; font-size: 14.5px; font-weight: 600;
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    transition: opacity .2s, transform .15s;
+  }
+  .form-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  /* FOOTER */
+  footer {
+    background: #0f0f2e;
+    padding: 22px 5vw;
+    text-align: center;
+    font-size: 13px; color: rgba(255,255,255,0.4);
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  footer span { color: rgba(139,92,246,0.7); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .badge-float { display: none; }
+    .why-grid { grid-template-columns: 1fr; gap: 24px; }
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 600px) {
+    .biz-grid { grid-template-columns: repeat(2,1fr); }
+    .tech-grid { grid-template-columns: repeat(2,1fr); }
+    .trust-inner { gap: 20px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">&lt;KT&gt;</div>
+    <span class="nav-brand">Kaur Tech Solutions</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#business">For Business</a></li>
+    <li><a href="#why">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">Fresno, California · Est. Kaur Tech Solutions</div>
+      <h1>Code Today.<br><span>Solve Tomorrow.</span><br>Empower Everyday.</h1>
+      <p class="hero-tagline">Smart Solutions. Real Results.</p>
+      <p class="hero-desc">Your trusted partner for programming, web development, IT support, and digital solutions. We help students, professionals, and businesses achieve their goals with quality and efficiency.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">Explore Services</a>
+        <a href="#contact" class="btn-secondary">Let's Talk</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="code-card">
+        <div><span class="line-num">1</span><span class="kw">def</span> <span class="fn">solve_problem</span>(x):</div>
+        <div><span class="line-num">2</span>&nbsp;&nbsp;<span class="kw">if</span> x == 0:</div>
+        <div><span class="line-num">3</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="str">'Success'</span></div>
+        <div><span class="line-num">4</span>&nbsp;&nbsp;<span class="kw">else</span>:</div>
+        <div><span class="line-num">5</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="fn">solve_problem</span>(x-1)</div>
+        <div><span class="line-num">6</span>&nbsp;</div>
+        <div><span class="line-num">7</span><span class="cm"># Your idea → our code → your success</span></div>
+        <div><span class="line-num">8</span><span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(5):</div>
+        <div><span class="line-num">9</span>&nbsp;&nbsp;<span class="fn">print</span>(<span class="fn">solve_problem</span>(i))</div>
+      </div>
+      <div class="badge-float">Smart<br>Solutions.<br>Real Results.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item"><span class="trust-icon">⏱️</span> On-Time Delivery</div>
+    <div class="trust-item"><span class="trust-icon">🏆</span> High Quality Work</div>
+    <div class="trust-item"><span class="trust-icon">⭐</span> 100% Client Satisfaction</div>
+    <div class="trust-item"><span class="trust-icon">💰</span> Affordable Pricing</div>
+    <div class="trust-item"><span class="trust-icon">💬</span> Clear & Friendly Communication</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-heading">Our Services</h2>
+      <p class="section-sub">From coding help to full web builds, we cover everything you need to succeed in tech.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🐍</span>
+        <h3>Python Programming</h3>
+        <ul class="service-list">
+          <li>Python Programming</li>
+          <li>Debugging & Error Fixing</li>
+          <li>Small Projects</li>
+          <li>Automation Scripts</li>
+          <li>File Handling, OOP, etc.</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">💻</span>
+        <h3>Web Development</h3>
+        <ul class="service-list">
+          <li>HTML, CSS, JavaScript</li>
+          <li>Responsive Websites</li>
+          <li>Landing Pages</li>
+          <li>Personal/Business Sites</li>
+          <li>Frontend Development</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🔧</span>
+        <h3>IT Support & Troubleshooting</h3>
+        <ul class="service-list">
+          <li>Computer Setup</li>
+          <li>Software Installation</li>
+          <li>Troubleshooting & Fixes</li>
+          <li>Network & Internet Help</li>
+          <li>System Optimization</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🎓</span>
+        <h3>Tutoring & Assignment Help</h3>
+        <ul class="service-list">
+          <li>Computer Science Tutoring</li>
+          <li>Programming Help</li>
+          <li>Assignments & Projects</li>
+          <li>Exam Preparation</li>
+          <li>Concepts Made Easy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS -->
+<section id="business">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">Start & Grow</div>
+      <h2 class="section-heading">Start Your Business — We Help You Build It!</h2>
+      <p class="section-sub">Everything you need to launch and grow your own business. We've got you covered.</p>
+    </div>
+    <div class="biz-grid">
+      <div class="biz-card">
+        <span class="biz-card-icon">🌐</span>
+        <h4>Website Development</h4>
+        <p>Custom, modern, and responsive websites for your business.</p>
+      </div>
+      <div class="biz-card">
+        <span class="biz-card-icon">🎨</span>
+        <h4>Logo & Branding Design</h4>
+        <p>Unique logos, brand identity, business cards & brand kits.</p>
+      </div>
+      <div class="biz-card">
+        <span class="biz-card-icon">📄</span>
+        <h4>Flyers, Posters & Brochures</h4>
+        <p>Eye-catching flyers, posters, and brochures to promote your business.</p>
+      </div>
+      <div class="biz-card">
+        <span class="biz-card-icon">🍽️</span>
+        <h4>Menus & Pricing Lists</h4>
+        <p>Professional menus and pricing lists for restaurants, salons, and businesses.</p>
+      </div>
+      <div class="biz-card">
+        <span class="biz-card-icon">📱</span>
+        <h4>Social Media Design</h4>
+        <p>Posts, banners, covers & stories to boost your online presence.</p>
+      </div>
+      <div class="biz-card">
+        <span class="biz-card-icon">🚀</span>
+        <h4>Business Setup Support</h4>
+        <p>Domain, hosting, email setup & digital presence guidance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS STRIP -->
+<div class="process-strip">
+  <div class="process-inner">
+    <div class="process-step"><span class="process-step-icon">💡</span><span class="process-step-label">Idea</span></div>
+    <span class="process-arrow">›</span>
+    <div class="process-step"><span class="process-step-icon">📋</span><span class="process-step-label">Plan</span></div>
+    <span class="process-arrow">›</span>
+    <div class="process-step"><span class="process-step-icon">🖥️</span><span class="process-step-label">Design</span></div>
+    <span class="process-arrow">›</span>
+    <div class="process-step"><span class="process-step-icon">&lt;/&gt;</span><span class="process-step-label">Develop</span></div>
+    <span class="process-arrow">›</span>
+    <div class="process-step"><span class="process-step-icon">🚀</span><span class="process-step-label">Launch</span></div>
+    <span class="process-arrow">›</span>
+    <div class="process-step"><span class="process-step-icon">📈</span><span class="process-step-label">Grow</span></div>
+  </div>
+</div>
+
+<!-- WHY CHOOSE -->
+<section id="why">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">About Us</div>
+      <h2 class="section-heading">Why Choose Kaur Tech Solutions?</h2>
+    </div>
+    <div class="why-grid">
+      <div>
+        <div class="section-label" style="margin-bottom:16px;">Why us</div>
+        <ul class="why-list">
+          <li><span class="why-check">✓</span> Reliable & Professional Service</li>
+          <li><span class="why-check">✓</span> Tailored Solutions for Your Needs</li>
+          <li><span class="why-check">✓</span> Fast Turnaround Time</li>
+          <li><span class="why-check">✓</span> Affordable Packages</li>
+          <li><span class="why-check">✓</span> Support Even After Delivery</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label" style="margin-bottom:16px;">Who we work with</div>
+        <ul class="who-list">
+          <li><span class="who-dot"></span>Students</li>
+          <li><span class="who-dot"></span>Startups</li>
+          <li><span class="who-dot"></span>Small Businesses</li>
+          <li><span class="who-dot"></span>Entrepreneurs</li>
+          <li><span class="who-dot"></span>Professionals</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label" style="margin-bottom:16px;">Technologies we use</div>
+        <div class="tech-grid">
+          <div class="tech-pill"><span>🐍</span>Python</div>
+          <div class="tech-pill"><span>🟠</span>HTML</div>
+          <div class="tech-pill"><span>🔵</span>CSS</div>
+          <div class="tech-pill"><span>🟡</span>JavaScript</div>
+          <div class="tech-pill"><span>🅱️</span>Bootstrap</div>
+          <div class="tech-pill"><span>🎨</span>Canva</div>
+          <div class="tech-pill"><span>🐬</span>MySQL</div>
+          <div class="tech-pill"><span>🟦</span>VS Code</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <h2>Let's Build Something Amazing Together!</h2>
+      <p>Your Idea. Our Code. Your Success. Message us today and let's turn your idea into a digital reality!</p>
+      <ul class="contact-details">
+        <li><span>✉️</span><a href="mailto:kaurtechsolutions@gmail.com">kaurtechsolutions@gmail.com</a></li>
+        <li><span>📞</span><a href="tel:5598743918">559-874-3918</a></li>
+        <li><span>🌐</span><a href="https://kaurtech.carrd.co/" target="_blank">kaurtech.carrd.co</a></li>
+        <li><span>📍</span><span>Fresno, California, USA</span></li>
+      </ul>
+    </div>
+    <div class="contact-form">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="Jane Smith">
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="you@email.com">
+      </div>
+      <div class="form-group">
+        <label>Service Needed</label>
+        <select>
+          <option value="" disabled selected>Select a service…</option>
+          <option>Python Programming</option>
+          <option>Web Development</option>
+          <option>IT Support & Troubleshooting</option>
+          <option>Tutoring & Assignment Help</option>
+          <option>Logo & Branding Design</option>
+          <option>Social Media Design</option>
+          <option>Business Setup Support</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tell Us About Your Project</label>
+        <textarea placeholder="Describe your idea or project…"></textarea>
+      </div>
+      <button class="form-submit" onclick="alert('Thanks! We\'ll be in touch soon. 🚀')">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Kaur Tech Solutions — Empowering Ideas with Technology <span>♥</span> · Fresno, California
+</footer>
+
+</body>
+</html>
